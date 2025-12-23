@@ -107,7 +107,7 @@ def dfs_search(start_idx, target_idx, max_depth=30):
 st.markdown("<h1>AI Movie Recommender</h1>", unsafe_allow_html=True)
 
 with st.sidebar:
-    st.header("⚙️ Academic Module")
+    st.header("Visualization")
     show_analysis = st.checkbox("Show AI Analysis (Sidebar)")
     target_movie = st.selectbox("Search Target Movie:", df['title'].values, index=5)
     algo_type = st.radio("Algorithm:", ["A*", "UCS", "DFS"])
@@ -150,7 +150,7 @@ if st.button('Show Recommendations'):
             path_sims = [similarity[path[i]][path[i+1]] for i in range(len(path)-1)]
             titles = df.iloc[path]['title'].tolist()
 
-            st.sidebar.write("### 📊 Similarity Heatmap")
+            st.sidebar.write(" Similarity Heatmap")
             fig1, ax1 = plt.subplots(figsize=(max(8, len(path)*0.5), max(6, len(path)*0.4)))
             sns.heatmap(similarity[np.ix_(path, path)], annot=(len(path)<=20), xticklabels=titles, yticklabels=titles, cmap='Reds', ax=ax1)
             ax1.set_xlabel("Steps (X-Axis)")
@@ -158,14 +158,14 @@ if st.button('Show Recommendations'):
             plt.xticks(rotation=45, ha='right')
             st.sidebar.pyplot(fig1)
 
-            st.sidebar.write("### 📊 Similarity Bar Chart")
+            st.sidebar.write(" Similarity Bar Chart")
             fig_bar, ax_bar = plt.subplots()
             ax_bar.bar([f"S{i+1}" for i in range(len(path_sims))], path_sims, color='#B20710')
             ax_bar.set_xlabel("Step Number (X-Axis)")
             ax_bar.set_ylabel("Similarity Score (Y-Axis)")
             st.sidebar.pyplot(fig_bar)
 
-            st.sidebar.write("### 📈 Path Similarity Flow")
+            st.sidebar.write(" Path Similarity Flow")
             fig_line, ax_line = plt.subplots()
             ax_line.plot(path_sims, marker='o', color='#B20710', linewidth=2, markersize=6)
             ax_line.set_xlabel("Transition Step (X-Axis)")
